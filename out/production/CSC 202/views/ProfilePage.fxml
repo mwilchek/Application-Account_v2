@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<?import java.net.URL?>
+<AnchorPane styleClass="root3" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfileController">
+    <children>
+        <TextArea editable="false" prefHeight="20.0" prefWidth="598.0" text="Account Information">
+            <font>
+                <Font name="Microsoft Sans Serif" size="29.0" />
+            </font>
+        </TextArea>
+      <Button layoutX="12.0" layoutY="550.0" mnemonicParsing="True" onMouseClicked="#logOff" text="Log Off" underline="true" />
+        <ImageView fx:id="profilePic" fitHeight="203.0" fitWidth="201.0" layoutX="383.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField editable="false" layoutX="14.0" layoutY="97.0" prefHeight="25.0" prefWidth="75.0" text="First Name:" />
+      <TextField editable="false" layoutX="14.0" layoutY="128.0" prefHeight="25.0" prefWidth="75.0" text="Last Name:" />
+      <TextField editable="false" layoutX="14.0" layoutY="160.0" prefHeight="25.0" prefWidth="75.0" text="DOB:" />
+      <TextField editable="false" layoutX="14.0" layoutY="192.0" prefHeight="25.0" prefWidth="75.0" text="Gender:" />
+      <TextField fx:id="firstName" editable="false" layoutX="99.0" layoutY="97.0" prefHeight="25.0" prefWidth="153.0" />
+      <TextField fx:id="lastName" editable="false" layoutX="99.0" layoutY="128.0" prefHeight="25.0" prefWidth="153.0" />
+      <TextField fx:id="gender" editable="false" layoutX="99.0" layoutY="192.0" prefHeight="25.0" prefWidth="153.0" />
+      <TextField fx:id="dob" editable="false" layoutX="99.0" layoutY="160.0" prefHeight="25.0" prefWidth="153.0" />
+      <TextField editable="false" layoutX="14.0" layoutY="226.0" prefHeight="25.0" prefWidth="75.0" text="Email:" />
+      <TextField editable="false" layoutX="14.0" layoutY="261.0" prefHeight="25.0" prefWidth="75.0" text="Phone:" />
+      <TextField fx:id="email" editable="false" layoutX="99.0" layoutY="226.0" prefHeight="25.0" prefWidth="153.0" />
+      <TextField fx:id="phone" editable="false" layoutX="99.0" layoutY="261.0" prefHeight="25.0" prefWidth="153.0" />
+      <TextField fx:id="notice" editable="false" layoutX="165.0" layoutY="550.0" prefHeight="25.0" prefWidth="309.0" />
+      <TextField editable="false" layoutX="89.0" layoutY="550.0" prefHeight="25.0" prefWidth="75.0" text="NOTICE:" />
+    </children>
+    <stylesheets>
+        <URL value="@profileStyle.css" />
+    </stylesheets>
+</AnchorPane>
