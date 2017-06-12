@@ -33,7 +33,7 @@ public class OrderedList<data> implements InterfaceOrderedList<data> {
 
     /**Local class method to increase size of List when new data is added */
     private void increaseSize() {
-        data[] newOrderedList = (data[]) new Object[2 * originalSize];
+        data[] newOrderedList = (data[]) new Object[orderedList.length + originalSize];
         for (int i = 0; i < orderedList.length; i++) {
             newOrderedList[i] = orderedList[i];
         }
