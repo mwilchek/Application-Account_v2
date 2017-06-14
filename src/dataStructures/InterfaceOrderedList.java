@@ -4,15 +4,13 @@ package dataStructures;
 
 interface InterfaceOrderedList<data> {
 
-    void add(data element);
+    int size();
 
-    data remove(data element);
+    void add(data element);
 
     boolean contains(data element);
 
-    boolean isEmpty();
-
-    int size();
+    data remove(data element);
 
     data get(data element);
 
@@ -21,5 +19,7 @@ interface InterfaceOrderedList<data> {
     void reset();
 
     data getNext();
+
+    boolean isEmpty();
 
 }

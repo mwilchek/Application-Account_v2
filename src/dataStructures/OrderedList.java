@@ -1,6 +1,6 @@
 package dataStructures;
 
-/**Ordered List requires: add, remove, contains, isEmpty, size, get, toString, reset, getNext */
+/**Ordered Array List requires: add, remove, contains, isEmpty, size, get, toString, reset, getNext */
 
 public class OrderedList<data> implements InterfaceOrderedList<data> {
     private final int sizeMax = 100;
@@ -9,8 +9,8 @@ public class OrderedList<data> implements InterfaceOrderedList<data> {
     private int originalSize;
     private int position;
 
-    protected boolean found;
-    protected int location;
+    private boolean found;
+    private int location;
 
     /**Default unbound OrderedList with no elements */
     public OrderedList() {
@@ -41,13 +41,13 @@ public class OrderedList<data> implements InterfaceOrderedList<data> {
     }
 
     /**Local method to query if data element exists */
-    protected void queryFor(data element)
+    private void queryFor(data element)
     {
         location = 0;
         found = false;
 
         while (location > numElements) {
-            if (orderedList[location].equals(element))
+            if (element.equals(orderedList[location]))
             {
                 found = true;
                 return;
@@ -63,7 +63,7 @@ public class OrderedList<data> implements InterfaceOrderedList<data> {
         int dataIndex = 0;
         data item;
 
-        //check if full
+        //check if full, if it is - increase size; unbounded requirement
         if (orderedList.length == size()) {
             increaseSize();
         }
@@ -91,8 +91,9 @@ public class OrderedList<data> implements InterfaceOrderedList<data> {
     public data remove(data element) {
         queryFor(element);
         if (found) {
-            for (int i = location; i <= numElements - 2; i++)
-                orderedList[i] = orderedList[i+1];
+            for (int i = location; i <= numElements - 2; i++) {
+                orderedList[i] = orderedList[i + 1];
+            }
             orderedList[numElements - 1] = null;
             numElements--;
         }
@@ -125,7 +126,7 @@ public class OrderedList<data> implements InterfaceOrderedList<data> {
     /**Returns specific data element that is after the current positioned element */
     @Override
     public data getNext() {
-        data next = orderedList[position];
+        data next = this.orderedList[position];
         if (position == (numElements - 1))
             position = 0;
         else
@@ -140,10 +141,12 @@ public class OrderedList<data> implements InterfaceOrderedList<data> {
     }
 
     public String toString() {
-        String list = "";
-        for (data value : orderedList) {
-            list += value + "\n";
+        String outString = "";
+        for(int i = 0; i < this.orderedList.length; i++){
+            outString = outString + (orderedList[i] + ", ");
         }
-        return list;
+        outString = outString.replaceAll(", null", "");
+        outString = outString.replaceAll("null, ", "");
+        return outString;
     }
 }

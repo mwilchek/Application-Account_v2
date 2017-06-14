@@ -77,12 +77,13 @@ public class Stack<data> implements InterfaceStack<data> {
             return false;
     }
 
-    public String toString() {
-        String list = "";
-        for (data value : stack) {
-            list += value + "\n";
+    public String toString(){
+        String outString = "";
+        for(int i = 0; i < this.stack.length; i++){
+            outString = outString + (stack[i] + ",");
         }
-        return list;
+        outString = outString.replaceAll(",null", "");
+        return outString;
     }
 
 }

@@ -68,11 +68,13 @@ public class Queue<data> implements InterfaceQueue<data> {
     }
 
     public String toString() {
-        String list = "";
-        for (data value : queue) {
-            list += value + "\n";
+        String outString = "";
+        for(int i = 0; i < this.queue.length; i++){
+            outString = outString + (queue[i] + ", ");
         }
-        return list;
+        outString = outString.replaceAll(", null", "");
+        outString = outString.replaceAll("null, ", "");
+        return outString;
     }
 
 }
