@@ -6,7 +6,7 @@ package Core; /**
 
 import java.io.Serializable;
 
-public class User extends Person implements Serializable {
+public class User extends Person implements Serializable, Comparable {
     private String userName;
     private String email;
     private String phone;
@@ -86,6 +86,10 @@ public class User extends Person implements Serializable {
                 '}';
     }
 
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 }
 
 

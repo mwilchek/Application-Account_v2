@@ -1,208 +1,124 @@
 package dataStructures;
 
+import exceptions.Duplicate;
+import exceptions.ElementNotExist;
+import exceptions.EmptyList;
 import exceptions.IndexOutOfBounds;
+import java.io.Serializable;
 
-/**Indexed List requires: add, set, remove, IndexOf, contains, isEmpty, size, get, toString, reset, getNext */
+/**Indexed List requires: add, set, remove, IndexOf, contains, isEmpty, size, get, toString, reset, getNext
+ * Methods: size(), contains(), reset(), getNext(), and isEmpty() are extended from super()*/
 
-public class IndexedList<data> implements InterfaceIndexedList<data> {
+public class IndexedList<data> extends UnsortedList<data> implements InterfaceIndexedList<data>, Serializable {
 
-    private final int sizeMax = 100; //default capacity
-    private data indexedList[]; //array that holds indexed elements
-    private int numElements = 0; //number of elements in the indexed list
-    private int originalSize; //original capacity
-    private int position;
-
-    private boolean found;
-    private int location;
-
+    /**Creates default sized list from UnsortedList */
     public IndexedList() {
-        indexedList = (data[]) new Object[sizeMax];
-        originalSize = sizeMax;
+        super();
     }
 
-    public IndexedList(int size) {
-        indexedList = (data[]) new Object[size];
-        originalSize = size;
+    /**Creates list with user defined size from UnsortedList */
+    public IndexedList(int originalSize) {
+        super(originalSize);
     }
 
-    @Override
-    public int size() {
-        return originalSize;
-    }
+    /**Throws IndexOutOfBounds Exception if passed an index argument
+     * such that index < 0 or index > size().
+     * Otherwise, adds element to this list at position index; all current
+     * elements at that position or higher have 1 added to their index.*/
+    public void add(int index, data element) throws Duplicate, IndexOutOfBounds {
+        if ((index < 0) || (index > size()))
+            throw new IndexOutOfBoundsException("illegal index of " + index +
+                    " passed to ArrayIndexedList add method.\n");
 
-    /**Local class method to increase size of List when new data is added */
-    private void increaseSize() {
-        data[] newOrderedList = (data[]) new Object[indexedList.length + originalSize];
-        System.arraycopy(indexedList, 0, newOrderedList, 0, indexedList.length);
-        indexedList = newOrderedList;
-    }
-
-    /**Local method to query if data element exists */
-    private void search(data element)
-    {
-        location = 0;
-        found = false;
-
-        while (location > numElements) {
-            if (!indexedList[location].equals(element)) {
-                location++;
-            } else {
-                found = true;
-                return;
-            }
-        }
-    }
-
-    /**Adds a specific data element and adjusts the Indexed List */
-    @Override
-    public void add(data element) {
-        int dataIndex = 0;
-        data item;
-
-        //check if full
-        if (indexedList.length == size()) {
+        if (numElements == list.length)
             increaseSize();
-        }
-        //Increment through list for index to insert new element
-        for (int i = dataIndex; i < size(); i++) {
-            item = indexedList[dataIndex];
-            if (((Comparable) item).compareTo(element) < 0) {
-                dataIndex++;
-            } else {
-                break;
-            }
-        }
-        //shift data index for added new element
-        System.arraycopy(indexedList, location, indexedList, location + 1, numElements - location);
-        indexedList[location] = element;
+
+        for (int i = numElements; i > index; i--)
+            list[i] = list[i - 1];
+
+        list[index] = element;
         numElements++;
     }
 
-    @Override
-    public void add(int index, data element) throws IndexOutOfBounds
-    //Adds elements to the list with assigned index
-    {
-        if ((index < 0) || (index > size())) //throws Index out of bounds exception if the index < 0 or index > size()
-            throw new IndexOutOfBounds("ERROR: Cannot Add. Illegal index of" + index + " passed.\n");
-
-        if (numElements == indexedList.length)
-            increaseSize();
-
-        System.arraycopy(indexedList, index, indexedList, index + 1, numElements - index);
-        indexedList[index] = element;
-        numElements++;
-    }
-
-    @Override
-    public void set(int index, data element) throws IndexOutOfBounds
-    //Replaces existing indexed element in list to new indexed element.
-    {
-        if ((index < 0) || (index >= size())) //Throws Index out of bounds exception if the index < 0 or index > size()
-            throw new IndexOutOfBoundsException("ERROR: Cannot Add. Illegal index of" + index + " passed.\n");
-
-        data originalElement = indexedList[index];
-        indexedList[index] = element;
-        data newIndexedElement = indexedList[index];
-        System.out.println("Set " + originalElement + " to " + newIndexedElement + " complete.");
-    }
-
-    @Override
-    public data remove(int index)
-    //Removes and returns the existing element on the list at the given index.
-    //Each element at higher positions have their index decreased by 1.
-    //Throws index out of bounds exception if index < 0 or index > size().
-    {
+    /**Throws IndexOutOfBounds Exception if passed an index argument
+     * such that index < 0 or index >= size().
+     * Otherwise, replaces element on this list at position index and
+     * returns the replaced element.*/
+    public data set(int index, data element) throws IndexOutOfBounds {
         if ((index < 0) || (index >= size()))
-            throw new IndexOutOfBoundsException("illegal index of" + index + " passed to ArrayIndexedList remove method.\n");
-        data hold = indexedList[index];
+            throw new IndexOutOfBounds("Illegal index of " + index +
+                    " passed to the List set method.\n");
 
-        for (int i = index; i < (numElements - 1); i++)
-            indexedList[i] = indexedList[i + 1];
+        data hold = list[index];
+        list[index] = element;
+        return hold;
+    }
 
-        indexedList[numElements - 1] = null;
+    /**Override required in order to declare get(index, element) */
+    @Override
+    public data get(int index) throws IndexOutOfBounds {
+        if ((index < 0) || (index >= size()))
+            throw new IndexOutOfBounds("Illegal index of " + index +
+                    " passed to Indexed List set method.\n");
+        else
+            return list[index];
+    }
+
+    /**Throws IndexOutOfBounds Exception if passed an index argument
+     * such that index < 0 or index >= size().
+     * Otherwise, returns the element on this list at position index.*/
+    public data get(int index, data element) throws IndexOutOfBounds, EmptyList {
+        if ((index < 0) || (index >= size()))
+            throw new IndexOutOfBounds("Illegal index of " + index +
+                    " passed to Indexed List set method.\n");
+        search(element);
+        if (!found)
+            throw new EmptyList("Element does not exist. List may be empty.");
+
+        return list[index];
+    }
+
+    /**If this list contains an element data such that data.equals(element), then returns the index of the first such
+     * element. Otherwise, throws Element not exist Exception.*/
+    public int indexOf(data element) throws ElementNotExist {
+        try {
+            search(element);
+        } catch (EmptyList emptyList) {
+            System.out.println("List is empty. No elements to search.");
+        }
+        if (found)
+            return location;
+        else
+            throw new ElementNotExist("Element does not exist.");
+    }
+
+    /**Throws IndexOutOfBounds Exception if passed an index argument
+     * such that index < 0 or index >= size().
+     * Otherwise, removes element on this list at position index and
+     * returns the removed element; all current elements at positions
+     * higher than that position have 1 subtracted from their index.*/
+    public data remove(int index) {
+        if ((index < 0) || (index >= size()))
+            try {
+                throw new IndexOutOfBounds ("Illegal index of " + index +
+                        " passed to Indexed List remove method.\n");
+            } catch (IndexOutOfBounds indexOutOfBounds) {
+                indexOutOfBounds.printStackTrace();
+            }
+
+        data hold = list[index];
+        for (int i = index; i < numElements; i++)
+            list[i] = list[i + 1];
+
+        list[numElements] = null;
         numElements--;
         return hold;
     }
 
-    @Override
-    public data remove(data element)
-    //Removes and returns an existing element on the list if it is identical to the element passed into the method.
-    {
-        search(element);
-        if (found) {
-            System.arraycopy(indexedList, location + 1, indexedList, location, numElements - 2 + 1 - location);
-            indexedList[numElements - 1] = null;
-            numElements--;
-        }
-        System.out.println("Cannot remove " + element + ". Does not exist in the data structure.");
-        return element;
-    }
-
-    @Override
-    public int indexOf(data element)
-    //Returns the given element's index for the first occurrence of it, otherwise a -1
-    {
-        search(element);
-        if (found)
-            return location;
-        else
-            return -1;
-    }
-
-    @Override
-    public boolean contains(data element)
-    // Returns true if an identical string already exists in the array, otherwise returns false.
-    {
-        search(element);
-        return found;
-    }
-
-    @Override
-    public boolean isEmpty()
-    //Returns true if this array is empty, otherwise returns false
-    {
-        return (numElements == 0);
-    }
-
-    @Override
-    public data get(data element)
-    //Returns the location of an element that equals the one passed if exists, otherwise returns false
-    {
-        search(element);
-        if (found)
-            return indexedList[location];
-        else
-            return null;
-    }
-
-
-    @Override
-    public void reset()
-    //Sets the current position to the first element of the list
-    {
-        position = 0;
-    }
-
-    @Override
-    public data getNext()
-    //Returns the next element through iteration, and updates the current position
-    {
-        data nextElement = indexedList[position];
-        if (position == (numElements - 1))
-            position = 0;
-        else
-            position++;
-        return nextElement;
-    }
-
-
-    public String toString()
-    //Returns a formatted string of the elements
-    {
-        StringBuilder indexedListString = new StringBuilder("List: \n");
+    public String toString() {
+        String listString = "List:\n";
         for (int i = 0; i < numElements; i++)
-            indexedListString.append(" [").append(i).append("] ").append(indexedList[i]).append("\n");
-        return indexedListString.toString();
+            listString = listString + "[" + i + "] " + list[i] + "\n";
+        return listString;
     }
-
 }

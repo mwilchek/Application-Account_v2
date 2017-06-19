@@ -1,107 +1,157 @@
 package tests;
 
-import dataStructures.OrderedList;
+import Core.User;
+import dataStructures.LinkedOrderedList;
+import exceptions.Duplicate;
+import exceptions.IndexOutOfBounds;
 import org.junit.jupiter.api.Test;
 import java.util.Random;
 
 public class OrderedListTest {
     @Test
     public void size() {
-        OrderedList a = new OrderedList();
+        LinkedOrderedList a = new LinkedOrderedList();
         System.out.println();
         System.out.println("Testing size()...");
-        System.out.println("New stack created with default size of: " + a.size());
+        System.out.println("New Linked Order List created with default size of: " + a.size());
+    }
 
-        OrderedList b = new OrderedList(110);
-        System.out.println("New stack created with custom size of: " + b.size());
+    @Test
+    public void user() {
 
-        System.out.println("Comparison of sizes (0 is both equal, " +
-                "1 is default stack less than custom, " +
-                "-1 is custom is less than default): " + Integer.compare(a.size(), b.size()));
+        LinkedOrderedList a = new LinkedOrderedList();
+
+        User user1 = new User( "Matt", "Wilchek", "01/01/2000", "Male",
+            "mwilchek", "mwilchek@aol.com", "555-555-5555",
+            "Password#1", "C:\\users\\pic" );
+
+        try {
+            a.add(user1);
+        } catch (Duplicate duplicate) {
+            duplicate.printStackTrace();
+        }
+
+        System.out.println();
+        System.out.println(a.toString());
     }
 
     @Test
     public void add() {
-        OrderedList a = new OrderedList(15);
+        LinkedOrderedList a = new LinkedOrderedList();
         Random rand = new Random();
-        for (int i = 0; i < a.size(); i++){
-            int  n = rand.nextInt(50) + 1;
-            a.add(n);
+        for (int i = 0; a.size() <= 15; i++) {
+            int n = rand.nextInt(50) + 1;
+                try {
+                    a.add(n);
+                } catch (Duplicate duplicate) {
+                    System.out.println("Warning: Loop tried adding a duplicate.");
+                }
+                continue;
+
         }
         System.out.println();
         System.out.println("Testing add()...");
-        System.out.println("Filled Ordered List with random values from 1-50.");
+        System.out.println("Filled Ordered List with random values from 1-50 with 0 duplicates");
         System.out.println(a.toString());
     }
 
     @Test
     public void remove() {
-        OrderedList a = new OrderedList(4);
-        a.add(2);
-        a.add(44);
-        a.add(7);
-        a.add(14);
+        LinkedOrderedList a = new LinkedOrderedList();
+        try{
+            a.add(2);
+            a.add(44);
+            a.add(7);
+            a.add(14);
+        } catch (Duplicate duplicate) {
+            duplicate.printStackTrace();
+        }
         System.out.println();
         System.out.println("Testing remove()...");
         System.out.println("Filled Ordered List, of size 4, with values: ");
         System.out.println(a.toString());
-        a.remove(14);
-        System.out.println("Testing removal of '14' : ");
-        System.out.println("Updated List : " + a.toString());
+        try{
+            a.remove(14);
+        } catch (IndexOutOfBounds indexOutOfBounds) {
+            indexOutOfBounds.printStackTrace();
+        }
+        System.out.println("Testing removal of '14': ");
+        System.out.println("Updated " + a.toString());
     }
 
     @Test
     public void contains() {
-        OrderedList a = new OrderedList(200);
+        LinkedOrderedList a = new LinkedOrderedList();
         Random rand = new Random();
-        for (int i = 0; i < a.size(); i++){
-            int  n = rand.nextInt(50) + 1;
-            a.add(n);
-        }
+        for (int i = 0; a.size() < 7; i++) {
+                int n = rand.nextInt(10) + 1;
+                try {
+                    a.add(n);
+                } catch (Duplicate duplicate) {
+                    System.out.println("Warning: Loop tried adding a duplicate.");
+                }
+            }
         System.out.println();
         System.out.println("Testing contains()...");
-        System.out.println("Filled Ordered List, of size 200, with random values from 1-50.");
-        System.out.println("Does element '5' exist?: " + a.contains(5));
+        System.out.println("Filled Ordered List, with random values from 1-10.");
+        try {
+            System.out.println("Does element '5' exist?: " + a.contains(5));
+        } catch (Duplicate duplicate) {
+            System.out.println("Does element '5' exist?: False");
+        }
+        System.out.println(a.toString());
     }
 
     @Test
-    public void get() {
-        OrderedList a = new OrderedList(4);
-        a.add(2);
-        a.add(44);
-        a.add(7);
-        a.add(14);
+    public void get() throws IndexOutOfBounds {
+        LinkedOrderedList a = new LinkedOrderedList();
+        try{
+            a.add(6);
+            a.add(44);
+            a.add(7);
+            a.add(14);
+        } catch (Duplicate duplicate) {
+            duplicate.printStackTrace();
+        }
         System.out.println();
         System.out.println("Testing get()...");
-        int getValue = (int) a.get(7);
-        System.out.println("3 + " + getValue + " = " + (3 + getValue)); //Answer 10
+        int getValue = (int) a.get(6);
+        System.out.println("3 + " + getValue + " = " + (3 + getValue)); //Answer 9
     }
 
     @Test
     public void reset() {
-        OrderedList a = new OrderedList(4);
-        a.add(2);
-        a.add(44);
+        LinkedOrderedList a = new LinkedOrderedList();
+        try{
+            a.add(2);
+            a.add(44);
+        } catch (Duplicate duplicate) {
+            duplicate.printStackTrace();
+        }
         System.out.println();
         System.out.println("Testing reset()...");
-        System.out.print("The position for lookup has been set to: " + a.reset());
+        a.reset();
+        System.out.print("The position for lookup has been reset.");
     }
 
     @Test
     public void getNext() {
-        OrderedList a = new OrderedList(4);
-        a.add(2);
-        a.add(44);
-        a.add(7);
-        a.add(14);
+        LinkedOrderedList a = new LinkedOrderedList();
+        try{
+            a.add(18);
+            a.add(22);
+        } catch (Duplicate duplicate) {
+            duplicate.printStackTrace();
+        }
         System.out.println();
         System.out.println("Testing getNext()...");
-        System.out.println("Data element: " + a.getNext());
+        System.out.println(a.toString());
+        System.out.println("Next data element of 18 is: " + a.getNext(18));
     }
 
     @Test
     public void isEmpty() {
-        OrderedList a = new OrderedList();
+        LinkedOrderedList a = new LinkedOrderedList();
         System.out.println();
         System.out.println("Testing isEmpty()...");
         System.out.println("The Ordered List is empty: " + a.isEmpty());

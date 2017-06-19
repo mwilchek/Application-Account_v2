@@ -1,5 +1,7 @@
 package controller;
 
+import dataStructures.IndexedList;
+import exceptions.Duplicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -92,13 +94,31 @@ public class NewAccountController {
         /**Create Profile Page and Add New User to local .dat file and MongoDB */
         { new NewAccountCreated();
             User user = new User( firstName.getText(), lastName.getText(), dob.getText(), gender.getSelectionModel().getSelectedItem().toString(), userName.getText(), email.getText(), phoneNumber.getText(), password.getText(), profilePic.getText() );
-            AccountList.getUsers().add(user);
-            addUserToMongoDB(user);
+
+            //Adds user to AccountList .dat file
+            //AccountList.getUsers().add(user);
+
+            //Adds user to Indexed Ordered List .dat file
+            try {
+                AccountIndexedList.getUsers().add(user);
+            } catch (Duplicate duplicate) {
+                duplicate.printStackTrace();
+            }
+
+            //Adds user to Linked Ordered List .dat file
+            //try {
+            //    AccountLinkedList.getUsers().add(user);
+            //} catch (Duplicate duplicate) {
+            //    System.out.println("Error: Duplicate account registration has occurred.");
+            //}
+
+            //Adds user to Mongo Database
+            //addUserToMongoDB(user);
         }
 
-        /**Update local .dat file */
+        /**Update local .dat file */ //updated AccountList.getUser()
         try {
-        	AcctDataTracker.outputAccounts(AccountList.getUsers());
+        	AcctDataTracker.outputAccounts(AccountIndexedList.getUsers());
         } catch (IOException e) {
             e.printStackTrace(); }
     }

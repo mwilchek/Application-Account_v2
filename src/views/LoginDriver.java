@@ -1,6 +1,7 @@
 package views;
 
 import Core.*;
+import dataStructures.IndexedList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +10,6 @@ import javafx.stage.Stage;
 import mongoDB.MongoDB;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class LoginDriver extends Application {
 
@@ -30,7 +30,9 @@ public class LoginDriver extends Application {
     public void loadUserAccounts() {
         try {
             // Validate for existing account
-            AccountList.setUsers((ArrayList<User>) AcctDataTracker.readAccounts());
+            AccountIndexedList.setUsers((IndexedList<User>) AcctDataTracker.readAccounts());
+            //AccountLinkedList.setUsers((LinkedOrderedList<User>) AcctDataTracker.readAccounts()); //AccountLinkedList
+            //AccountList.setUsers((ArrayList<User>) AcctDataTracker.readAccounts()); //original ArrayList setter
         } catch (IOException e) {
             System.err.print("Cannot open Accounts file.");
         } catch (ClassNotFoundException e) {
