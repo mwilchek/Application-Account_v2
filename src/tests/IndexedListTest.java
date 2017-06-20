@@ -1,5 +1,8 @@
 package tests;
 
+import Core.AccountIndexedList;
+import Core.AcctDataTracker;
+import Core.User;
 import dataStructures.*;
 import exceptions.Duplicate;
 import exceptions.IndexOutOfBounds;
@@ -26,6 +29,21 @@ public class IndexedListTest {
     }
 
     /**Tests adding element to list with index and element */
+
+    @Test
+    public void loadUser() throws Exception {
+
+        /**Assumption: A username was created with mwilchek already in the IndexedList .dat file */
+        String userName = "mwilchek";
+
+        System.out.print((IndexedList<User>) AcctDataTracker.readAccounts());
+        AccountIndexedList.setUsers((IndexedList<User>) AcctDataTracker.readAccounts()); //Error with setUsers
+
+        int userIndex = AccountIndexedList.getUsers().indexOf(userName);
+        System.out.println("The index for " + userName + " is: " + userIndex);
+
+    }
+
     @Test
     public void add() {
         IndexedList a = new IndexedList(15);

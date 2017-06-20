@@ -19,7 +19,7 @@ public class LoginDriver extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        MongoDB.setMongoConnection();
+        //MongoDB.setMongoConnection();
         loadUserAccounts();
         Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
         primaryStage.setTitle("Application Login");
@@ -30,6 +30,7 @@ public class LoginDriver extends Application {
     public void loadUserAccounts() {
         try {
             // Validate for existing account
+            System.out.print((IndexedList<User>)AcctDataTracker.readAccounts());
             AccountIndexedList.setUsers((IndexedList<User>) AcctDataTracker.readAccounts());
             //AccountLinkedList.setUsers((LinkedOrderedList<User>) AcctDataTracker.readAccounts()); //AccountLinkedList
             //AccountList.setUsers((ArrayList<User>) AcctDataTracker.readAccounts()); //original ArrayList setter

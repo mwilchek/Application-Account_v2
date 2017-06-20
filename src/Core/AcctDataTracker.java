@@ -1,10 +1,12 @@
 package Core;
 
+import dataStructures.IndexedList;
+
 import java.io.*;
 
 public class AcctDataTracker {
 
-    public static void outputAccounts(Object accounts) throws IOException {
+    public static void outputAccounts(IndexedList<User> accounts) throws IOException {
         ObjectOutputStream output;
         output = new ObjectOutputStream(new FileOutputStream("accounts.dat"));
         output.writeObject(accounts);

@@ -62,6 +62,13 @@ public class NewAccountController {
         gender.setItems(genderList);
     }
 
+    /**Update .dat file with new user info */
+    private void outputIndexedAccounts(User user) throws Exception {
+        IndexedList<User> list = new IndexedList<>();
+        list.add(user);
+        AcctDataTracker.outputAccounts(list);
+    }
+
     /**Create New User Account */
     public void createAccount() throws IOException {
 
@@ -93,17 +100,17 @@ public class NewAccountController {
 
         /**Create Profile Page and Add New User to local .dat file and MongoDB */
         { new NewAccountCreated();
-            User user = new User( firstName.getText(), lastName.getText(), dob.getText(), gender.getSelectionModel().getSelectedItem().toString(), userName.getText(), email.getText(), phoneNumber.getText(), password.getText(), profilePic.getText() );
+            User u = new User( firstName.getText(), lastName.getText(), dob.getText(), gender.getSelectionModel().getSelectedItem().toString(), userName.getText(), email.getText(), phoneNumber.getText(), password.getText(), profilePic.getText() );
+
+            //Adds new user to IndexedList and updates .dat file (works)
+            try {
+                outputIndexedAccounts(u);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             //Adds user to AccountList .dat file
             //AccountList.getUsers().add(user);
-
-            //Adds user to Indexed Ordered List .dat file
-            try {
-                AccountIndexedList.getUsers().add(user);
-            } catch (Duplicate duplicate) {
-                duplicate.printStackTrace();
-            }
 
             //Adds user to Linked Ordered List .dat file
             //try {
@@ -116,11 +123,11 @@ public class NewAccountController {
             //addUserToMongoDB(user);
         }
 
-        /**Update local .dat file */ //updated AccountList.getUser()
+        /**Update local .dat file for AccountList
         try {
-        	AcctDataTracker.outputAccounts(AccountIndexedList.getUsers());
+        	AcctDataTracker.outputAccounts(AccountList.getUsers());
         } catch (IOException e) {
-            e.printStackTrace(); }
+            e.printStackTrace(); }*/
     }
 
     /**

@@ -5,9 +5,9 @@ import dataStructures.IndexedList;
 /**
  * Created by Matt on 6/18/2017.
  */
-public class AccountIndexedList<U extends Person> {
+public class AccountIndexedList<U extends User> {
 
-    private static IndexedList users = new IndexedList();
+    private static IndexedList<User> users = new IndexedList<>();
 
     public static IndexedList getUsers() {
         return users;

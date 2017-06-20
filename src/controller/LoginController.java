@@ -47,6 +47,8 @@ public class LoginController {
         }
     }
 
+
+
     /** Authentication attempt with AccountIndexedList */
     public void authenticate() throws Exception {
         int userIndex = AccountIndexedList.getUsers().indexOf(userName.getText());
