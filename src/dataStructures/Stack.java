@@ -1,6 +1,8 @@
 package dataStructures;
 
-/**Stack requires: Push, pop, top, isEmpty, isFull (array), size, toString */
+/**
+ * Stack requires: Push, pop, top, isEmpty, isFull (array), size, toString
+ */
 
 import exceptions.Overflow;
 import exceptions.Underflow;
@@ -28,29 +30,27 @@ public class Stack<data> implements InterfaceStack<data> {
 
     /**Adds a specific data element to top of Stack */
     @Override
-    public void push (data element) throws Overflow {
+    public void push(data element) throws Overflow {
         if (!isFull()) {
             topIndex++;
             stack[topIndex] = element;
-        }
-        else
+        } else
             throw new Overflow("Stack is FULL. Cannot push.");
     }
 
     /**Removes a specific data element to top of Stack */
     @Override
-    public void pop () throws Underflow {
+    public void pop() throws Underflow {
         if (!isEmpty()) {
             stack[topIndex] = null;
             topIndex--;
-        }
-        else
+        } else
             throw new Underflow("Stack is EMPTY. Cannot pop.");
     }
 
     /**Get top data element in stack. */
     @Override
-    public data top () throws Underflow {
+    public data top() throws Underflow {
         data topOfStack;
         if (!isEmpty())
             topOfStack = stack[topIndex];
@@ -61,7 +61,7 @@ public class Stack<data> implements InterfaceStack<data> {
 
     /**Checks is Stack is empty or not */
     @Override
-    public boolean isEmpty () {
+    public boolean isEmpty() {
         if (topIndex == -1)
             return true;
         else
@@ -70,16 +70,16 @@ public class Stack<data> implements InterfaceStack<data> {
 
     /**Checks is stack is full or not */
     @Override
-    public boolean isFull () {
-        if (topIndex == (stack.length - 1) )
+    public boolean isFull() {
+        if (topIndex == (stack.length - 1))
             return true;
         else
             return false;
     }
 
-    public String toString(){
+    public String toString() {
         String outString = "";
-        for(int i = 0; i < this.stack.length; i++){
+        for (int i = 0; i < this.stack.length; i++) {
             outString = outString + (stack[i] + ",");
         }
         outString = outString.replaceAll(",null", "");

@@ -1,13 +1,14 @@
 package dataStructures;
+
 import java.io.Serializable;
 
 /**
  * Created by Matt on 6/14/2017.
  */
-public class LinkedListNode <data> implements Serializable {
+public class LinkedListNode<data> implements Serializable {
 
-    private data element;
     LinkedListNode pointer;
+    private data element;
 
     public LinkedListNode(data element) {
         this.element = element;

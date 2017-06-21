@@ -2,9 +2,12 @@ package dataStructures;
 
 import exceptions.Duplicate;
 import exceptions.IndexOutOfBounds;
+
 import java.io.Serializable;
 
-/**Ordered List requires: add, remove, contains, isEmpty, size, get, toString, reset, getNext */
+/**
+ * Ordered List requires: add, remove, contains, isEmpty, size, get, toString, reset, getNext
+ */
 
 public class LinkedOrderedList<data extends Comparable> implements InterfaceOrderedList<data>, Serializable {
 
@@ -16,47 +19,56 @@ public class LinkedOrderedList<data extends Comparable> implements InterfaceOrde
     private LinkedListNode<data> previous;
     private LinkedListNode<data> LLOrderedList;
 
-    /**Default unbound OrderedList with no elements */
+    /**
+     * Default unbound OrderedList with no elements
+     */
     public LinkedOrderedList() {
         numElements = 0;
         LLOrderedList = null;
         position = null;
     }
 
-    /**Local method to query if data element exists */
+    /**
+     * Local method to query if data element exists
+     */
     protected void find(data target) {
         location = LLOrderedList;
         found = false;
 
-        while(location != null)
-        {
-            if (location.getElement().equals(target))
-            {
+        while (location != null) {
+            if (location.getElement().compareTo(target) == 0) {
                 found = true;
                 return;
+            }
+            if (location.getElement().compareTo(target) > 0) {
+                previous = location;
+                location = location.getPointer();
+                return;
             } else {
-                previous = location ;
+                previous = location;
                 location = location.getPointer();
             }
         }
     }
 
-    /** Returns the number of elements in the list */
+    /**
+     * Returns the number of elements in the list
+     */
     @Override
     public int size() {
         return numElements;
     }
 
-    /**Adds a specific data element and adjusts the Ordered List.
-     * Implements compareTo to adjust order location. */
+    /**
+     * Adds a specific data element and adjusts the Ordered List.
+     * Implements compareTo to adjust order location.
+     */
     @Override
     public void add(data element) throws Duplicate {
         find(element);
-        if (found){
+        if (found) {
             throw new Duplicate("Error element exists. Cannot add.");
-        }
-
-        else {
+        } else {
             LinkedListNode<data> previousLocation;
             LinkedListNode<data> location;
             data listElement;
@@ -69,8 +81,7 @@ public class LinkedOrderedList<data extends Comparable> implements InterfaceOrde
                 if (((Comparable) listElement).compareTo(element) < 0) {
                     previousLocation = location;
                     location = location.getPointer();
-                }
-                else
+                } else
                     break;
             }
             LinkedListNode<data> newNode = new LinkedListNode<data>(element);
@@ -79,8 +90,7 @@ public class LinkedOrderedList<data extends Comparable> implements InterfaceOrde
             if (previousLocation == null) {
                 newNode.setPointer(LLOrderedList);
                 LLOrderedList = newNode;
-            }
-            else {
+            } else {
                 newNode.setPointer(location);
                 previousLocation.setPointer(newNode);
 
@@ -90,24 +100,27 @@ public class LinkedOrderedList<data extends Comparable> implements InterfaceOrde
         }
     }
 
-    /**Removes and returns an existing element on the list if it is identical to the element passed into the method */
+    /**
+     * Removes and returns an existing element on the list if it is identical to the element passed into the method
+     */
     @Override
     public data remove(data element) throws IndexOutOfBounds {
         find(element);
-        if(found) {
+        if (found) {
             if (LLOrderedList == location)
                 LLOrderedList = LLOrderedList.getPointer();
             else
                 previous.setPointer(location.getPointer());
             numElements--;
-        }
-        else {
+        } else {
             throw new IndexOutOfBounds("Cannot remove " + element + ". Does not exist.");
         }
         return element;
     }
 
-    /**Returns true if an identical element already exists in the list, otherwise returns false */
+    /**
+     * Returns true if an identical element already exists in the list, otherwise returns false
+     */
     @Override
     public boolean contains(data element) throws Duplicate {
         find(element);
@@ -117,15 +130,19 @@ public class LinkedOrderedList<data extends Comparable> implements InterfaceOrde
             throw new Duplicate(element + " does not exist.");
     }
 
-    /**Returns true if this list is empty, otherwise returns false */
+    /**
+     * Returns true if this list is empty, otherwise returns false
+     */
     @Override
     public boolean isEmpty() {
         return (numElements == 0);
     }
 
-    /**Returns an equivalent data element on the list, if it exists */
+    /**
+     * Returns an equivalent data element on the list, if it exists
+     */
     @Override
-    public data get(data element) throws IndexOutOfBounds{
+    public data get(data element) throws IndexOutOfBounds {
         find(element);
         if (found)
             return location.getElement();
@@ -133,13 +150,16 @@ public class LinkedOrderedList<data extends Comparable> implements InterfaceOrde
             throw new IndexOutOfBounds("Cannot get. " + element + " does not exist.");
     }
 
-    /**Sets the current position to the first element of the list */
+    /**
+     * Sets the current position to the first element of the list
+     */
     @Override
     public void reset() {
         position = LLOrderedList;
     }
 
-    /**Returns the next element through iteration, and updates the current position
+    /**
+     * Returns the next element through iteration, and updates the current position
      */
     @Override
     public data getNext(data element) {
@@ -149,10 +169,12 @@ public class LinkedOrderedList<data extends Comparable> implements InterfaceOrde
         return next;
     }
 
-    /**Returns a formatted string of the elements in this list */
+    /**
+     * Returns a formatted string of the elements in this list
+     */
     public String toString() {
         LinkedListNode<data> currNode = LLOrderedList;
-        String LLOrderedListString ="List:\n";
+        String LLOrderedListString = "List:\n";
         while (currNode != null) {
             LLOrderedListString = LLOrderedListString + " " + currNode.getElement() + "\n";
             currNode = currNode.getPointer();

@@ -25,42 +25,58 @@ public class Person implements Serializable {
         this.gender = gender;
     }
 
-    /** Get First Name of Person */
+    /**
+     * Get First Name of Person
+     */
     public String getFirstName() {
         return firstName;
     }
-    
-    /** Set First Name of Person */
+
+    /**
+     * Set First Name of Person
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    /** Get Last Name of Person */
+    /**
+     * Get Last Name of Person
+     */
     public String getLastName() {
         return lastName;
     }
 
-    /** Set Last Name of Person */
+    /**
+     * Set Last Name of Person
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    /** Get DOB of Person */
+    /**
+     * Get DOB of Person
+     */
     public String getDob() {
         return dob;
     }
 
-    /** Set DOB of Person */
+    /**
+     * Set DOB of Person
+     */
     public void setDob(String dob) {
         this.dob = dob;
     }
 
-    /** Get Gender of Person */
+    /**
+     * Get Gender of Person
+     */
     public String getGender() {
         return gender;
     }
 
-    /** Set Gender of Person */
+    /**
+     * Set Gender of Person
+     */
     public void setGender(String gender) {
         this.gender = gender;
     }

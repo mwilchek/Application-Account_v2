@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>dataStructures</OriginalElement>
+  <nodes>
+    <node x="392.0" y="1051.0">dataStructures.LinkedListNode</node>
+    <node x="37.5" y="1051.0">dataStructures.InterfaceStack</node>
+    <node x="302.25" y="778.0">dataStructures.IndexedList</node>
+    <node x="977.5" y="0.0">dataStructures.Iterator</node>
+    <node x="325.25" y="0.0">dataStructures.InterfaceList</node>
+    <node x="0.0" y="1285.0">dataStructures.Stack</node>
+    <node x="818.0" y="357.0">dataStructures.LinkedOrderedList</node>
+    <node x="527.0" y="422.5">dataStructures.InterfaceIndexedList</node>
+    <node x="935.0" y="123.0">dataStructures.InterfaceOrderedList</node>
+    <node x="1330.0" y="212.0">dataStructures.Queue</node>
+    <node x="1377.5" y="0.0">dataStructures.InterfaceQueue</node>
+    <node x="0.0" y="256.0">dataStructures.UnsortedList</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="dataStructures.LinkedOrderedList" target="dataStructures.InterfaceOrderedList">
+      <point x="0.0" y="-203.0" />
+      <point x="0.0" y="92.0" />
+    </edge>
+    <edge source="dataStructures.InterfaceOrderedList" target="dataStructures.Iterator">
+      <point x="0.0" y="-92.0" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="dataStructures.Stack" target="dataStructures.InterfaceStack">
+      <point x="0.0" y="-148.0" />
+      <point x="0.0" y="92.0" />
+    </edge>
+    <edge source="dataStructures.IndexedList" target="dataStructures.InterfaceIndexedList">
+      <point x="74.75" y="-114.0" />
+      <point x="526.5" y="753.0" />
+      <point x="650.0" y="753.0" />
+      <point x="0.0" y="69.5" />
+    </edge>
+    <edge source="dataStructures.IndexedList" target="dataStructures.UnsortedList">
+      <point x="-74.75" y="-114.0" />
+      <point x="377.0" y="753.0" />
+      <point x="253.5" y="753.0" />
+      <point x="0.0" y="236.0" />
+    </edge>
+    <edge source="dataStructures.Queue" target="dataStructures.InterfaceQueue">
+      <point x="0.0" y="-159.0" />
+      <point x="0.0" y="81.0" />
+    </edge>
+    <edge source="dataStructures.InterfaceIndexedList" target="dataStructures.InterfaceList">
+      <point x="0.0" y="-69.5" />
+      <point x="650.0" y="231.0" />
+      <point x="515.0" y="231.0" />
+      <point x="63.25" y="103.0" />
+    </edge>
+    <edge source="dataStructures.UnsortedList" target="dataStructures.InterfaceList">
+      <point x="0.0" y="-236.0" />
+      <point x="253.5" y="231.0" />
+      <point x="388.5" y="231.0" />
+      <point x="-63.25" y="103.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.36352279825109307" x="848.5" y="790.5" />
+  <SelectedNodes>
+    <node>dataStructures.LinkedListNode</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Constructors</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

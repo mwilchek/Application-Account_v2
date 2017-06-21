@@ -1,9 +1,12 @@
 package controller;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import java.io.File;
+
 import static controller.LoginController.profile;
 
 public class ProfileController {
@@ -27,7 +30,7 @@ public class ProfileController {
 
     @FXML
     private void initialize() {
-    	firstName.setText(profile.getFname());
+        firstName.setText(profile.getFname());
         lastName.setText(profile.getlName());
         gender.setText(profile.getGend());
         dob.setText(profile.getDob());
@@ -37,13 +40,13 @@ public class ProfileController {
         Image image = new Image(file.toURI().toString());
         profilePic.setImage(image);
 
-        if (firstName.getText().equals("")){
-        	notice.setText("Error loading user data.");
+        if (firstName.getText().equals("")) {
+            notice.setText("Error loading user data.");
         }
-             
+
     }
 
-    public void logOff(){
+    public void logOff() {
         System.exit(0);
     }
 

@@ -21,47 +21,55 @@ public class Queue<data> implements InterfaceQueue<data> {
         back = size - 1;
     }
 
-    /**Get number of data elements in the queue */
+    /**
+     * Get number of data elements in the queue
+     */
     @Override
     public int size() {
         return numElements;
     }
 
-    /**Adds a new data element to the back of the Queue */
+    /**
+     * Adds a new data element to the back of the Queue
+     */
     @Override
     public void Enqueue(data element) throws QueueOverflow {
-        if (!isFull()){
+        if (!isFull()) {
             back = (back + 1) % queue.length;
             queue[back] = element;
             numElements = numElements + 1;
-        }
-        else
+        } else
             throw new QueueOverflow("Queue is FULL. Cannot add.");
     }
 
-    /**Returns/removes the top element in the queue and adjusts the size */
+    /**
+     * Returns/removes the top element in the queue and adjusts the size
+     */
     @Override
     public data Dequeue() throws QueueUnderflow {
 
-        if (!isEmpty()){
+        if (!isEmpty()) {
             data firstInQueue = queue[front]; //instantiate data element
             queue[front] = null; //instantiate data element
 
             front = (front + 1) % queue.length;
             numElements = numElements - 1;
             return firstInQueue;
-        }
-        else
+        } else
             throw new QueueUnderflow("Queue is EMPTY. Cannot dequeue.");
     }
 
-    /**Checks if the queue is empty or not */
+    /**
+     * Checks if the queue is empty or not
+     */
     @Override
     public boolean isEmpty() {
         return (numElements == 0);
     }
 
-    /**Checks if the queue is full or not */
+    /**
+     * Checks if the queue is full or not
+     */
     @Override
     public boolean isFull() {
         return (numElements == queue.length);
@@ -69,7 +77,7 @@ public class Queue<data> implements InterfaceQueue<data> {
 
     public String toString() {
         String outString = "";
-        for(int i = 0; i < this.queue.length; i++){
+        for (int i = 0; i < this.queue.length; i++) {
             outString = outString + (queue[i] + ", ");
         }
         outString = outString.replaceAll(", null", "");

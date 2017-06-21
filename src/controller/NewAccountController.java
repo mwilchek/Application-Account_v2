@@ -1,7 +1,8 @@
 package controller;
 
-import dataStructures.IndexedList;
-import exceptions.Duplicate;
+import Core.AccountList;
+import Core.AcctDataTracker;
+import Core.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,10 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import Core.*;
+import javafx.stage.FileChooser.ExtensionFilter;
 import views.NewAccountCreated;
 import views.RegisterDriver;
-import javafx.stage.FileChooser.ExtensionFilter;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -62,35 +63,35 @@ public class NewAccountController {
         gender.setItems(genderList);
     }
 
-    /**Update .dat file with new user info */
-    private void outputIndexedAccounts(User user) throws Exception {
-        IndexedList<User> list = new IndexedList<>();
-        list.add(user);
-        AcctDataTracker.outputAccounts(list);
-    }
-
-    /**Create New User Account */
+    /**
+     * Create New User Account
+     */
     public void createAccount() throws IOException {
 
-    	/** Validate Info */
-        if ( firstName.getText().equals("") || lastName.getText().equals("") || dob.getText().equals("")
-                || gender.getSelectionModel().getSelectedItem().toString().equals("") || userName.getText().equals("") || password.getText().equals("") ) {
-            failFieldsNotComplete.setVisible(true); }
+        /** Validate Info */
+        if (firstName.getText().equals("") || lastName.getText().equals("") || dob.getText().equals("")
+                || gender.getSelectionModel().getSelectedItem().toString().equals("") || userName.getText().equals("") || password.getText().equals("")) {
+            failFieldsNotComplete.setVisible(true);
+        }
 
-        if ( !email.getText().matches("\\w+@\\w+\\.\\w+") ) {
-            failEmailFormat.setVisible(true); }
+        if (!email.getText().matches("\\w+@\\w+\\.\\w+")) {
+            failEmailFormat.setVisible(true);
+        }
 
-        if ( !password.getText().equals(password2.getText()) ) {
-            failSamePassword.setVisible(true); }
+        if (!password.getText().equals(password2.getText())) {
+            failSamePassword.setVisible(true);
+        }
 
-        if ( !validatePassword(password.getText()) ) {
-            failPasswordFormat.setVisible(true); }
+        if (!validatePassword(password.getText())) {
+            failPasswordFormat.setVisible(true);
+        }
 
-        if ( AccountList.getUsers().contains(userName.getText()) ) {
-            failUsernameExists.setVisible(true); }
+        if (AccountList.getUsers().contains(userName.getText())) {
+            failUsernameExists.setVisible(true);
+        }
 
 
-        if ( !firstName.getText().equals("") && !lastName.getText().equals("") && !dob.getText().equals("")
+        if (!firstName.getText().equals("") && !lastName.getText().equals("") && !dob.getText().equals("")
                 && !gender.getSelectionModel().getSelectedItem().equals(null) && !userName.getText().equals("") && !password.getText().equals("")
                 && password.getText().equals(password2.getText())
                 && validatePassword(password.getText())
@@ -98,42 +99,36 @@ public class NewAccountController {
                 && !(AccountList.getUsers().contains(userName.getText()))
                 )
 
-        /**Create Profile Page and Add New User to local .dat file and MongoDB */
-        { new NewAccountCreated();
-            User u = new User( firstName.getText(), lastName.getText(), dob.getText(), gender.getSelectionModel().getSelectedItem().toString(), userName.getText(), email.getText(), phoneNumber.getText(), password.getText(), profilePic.getText() );
+        /**Create Profile Page and Add New User to local .dat file and MongoDB */ {
+            new NewAccountCreated();
+            User u = new User(firstName.getText(), lastName.getText(), dob.getText(), gender.getSelectionModel().getSelectedItem().toString(), userName.getText(), email.getText(), phoneNumber.getText(), password.getText(), profilePic.getText());
 
-            //Adds new user to IndexedList and updates .dat file (works)
+            //Adds new user to IndexedList and updates .dat file
             try {
-                outputIndexedAccounts(u);
+                AcctDataTracker.outputIndexedAccounts(u);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             //Adds user to AccountList .dat file
-            //AccountList.getUsers().add(user);
-
-            //Adds user to Linked Ordered List .dat file
-            //try {
-            //    AccountLinkedList.getUsers().add(user);
-            //} catch (Duplicate duplicate) {
-            //    System.out.println("Error: Duplicate account registration has occurred.");
-            //}
+            //AccountList.getUsers().add(u);
 
             //Adds user to Mongo Database
-            //addUserToMongoDB(user);
+            //addUserToMongoDB(u);
         }
 
-        /**Update local .dat file for AccountList
-        try {
-        	AcctDataTracker.outputAccounts(AccountList.getUsers());
-        } catch (IOException e) {
-            e.printStackTrace(); }*/
+        //Update local .dat file for AccountList
+        //try {
+            //AcctDataTracker.outputAccounts(AccountList.getUsers());
+        //} catch (IOException e) {
+         //   e.printStackTrace();
+        //}
     }
 
     /**
      * Validate Password: Must have 1 number, 1 upper case letter, 1 lower case
      * letter, 1 special character
-     */    
+     */
     public boolean validatePassword(String password) {
         boolean hasUpperLetter = false;
         boolean hasLowerCase = false;
@@ -177,8 +172,10 @@ public class NewAccountController {
             return false;
         }
     }
-    
-    /**Open File Chooser for Picture */
+
+    /**
+     * Open File Chooser for Picture
+     */
     public void uploadProfilePic() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Find Profile Picture");

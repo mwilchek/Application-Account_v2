@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
  */
 public class AcctDataTrackerTest {
     @Test
-    public void outputAccounts(User user) throws Exception {
+    public void outputAccountsI(User user) throws Exception {
         IndexedList<User> list = new IndexedList<>();
         list.add(user);
         AcctDataTracker.outputAccounts(list);
@@ -18,7 +18,7 @@ public class AcctDataTrackerTest {
 
     @Test
     public void readAccounts() throws Exception {
-        System.out.print((IndexedList<User>)AcctDataTracker.readAccounts());
+        System.out.print((IndexedList<User>) AcctDataTracker.readAccounts());
     }
 
 }

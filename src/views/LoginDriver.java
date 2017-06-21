@@ -1,5 +1,10 @@
 package views;
-
+/**
+ * @author Matt Wilchek
+ * @use This application should only be tested by Matt Wilchek and Professor Tanes Kanchanawanchai
+ * Any testers outside of these 2 individuals will be in violation of this license. Matt Wilchek reserves all rights
+ * to this files and related project files under /src
+ * */
 import Core.*;
 import dataStructures.IndexedList;
 import javafx.application.Application;
@@ -10,6 +15,9 @@ import javafx.stage.Stage;
 import mongoDB.MongoDB;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import static Core.AcctDataTracker.readIndexedAccounts;
 
 public class LoginDriver extends Application {
 
@@ -27,13 +35,14 @@ public class LoginDriver extends Application {
         primaryStage.show();
     }
 
-    public void loadUserAccounts() {
+    public void loadUserAccounts() throws Exception {
         try {
-            // Validate for existing account
-            System.out.print((IndexedList<User>)AcctDataTracker.readAccounts());
-            AccountIndexedList.setUsers((IndexedList<User>) AcctDataTracker.readAccounts());
-            //AccountLinkedList.setUsers((LinkedOrderedList<User>) AcctDataTracker.readAccounts()); //AccountLinkedList
-            //AccountList.setUsers((ArrayList<User>) AcctDataTracker.readAccounts()); //original ArrayList setter
+            // Validate for existing account from IndexedList .dat file
+            IndexedList<User> list = readIndexedAccounts();
+            AccountIndexedList.setUsers(list);
+
+            // Validate for existing account from array .dat file
+            //AccountList.setUsers((ArrayList<User>) AcctDataTracker.readAccounts());
         } catch (IOException e) {
             System.err.print("Cannot open Accounts file.");
         } catch (ClassNotFoundException e) {

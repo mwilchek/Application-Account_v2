@@ -13,6 +13,10 @@ public class User extends Person implements Serializable, Comparable {
     private String password;
     private String profilePic;
 
+    public User() {
+
+    }
+
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
@@ -74,7 +78,7 @@ public class User extends Person implements Serializable, Comparable {
     public void setPassword(String password) {
         this.password = password;
     }
-   
+
     @Override
     public String toString() {
         return "User{" +

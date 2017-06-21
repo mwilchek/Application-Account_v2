@@ -4,27 +4,36 @@ import exceptions.Duplicate;
 import exceptions.ElementNotExist;
 import exceptions.EmptyList;
 import exceptions.IndexOutOfBounds;
+
 import java.io.Serializable;
 
-/**Indexed List requires: add, set, remove, IndexOf, contains, isEmpty, size, get, toString, reset, getNext
- * Methods: size(), contains(), reset(), getNext(), and isEmpty() are extended from super()*/
+/**
+ * Indexed List requires: add, set, remove, IndexOf, contains, isEmpty, size, get, toString, reset, getNext
+ * Methods: size(), contains(), reset(), getNext(), and isEmpty() are extended from super()
+ */
 
 public class IndexedList<data> extends UnsortedList<data> implements InterfaceIndexedList<data>, Serializable {
 
-    /**Creates default sized list from UnsortedList */
+    /**
+     * Creates default sized list from UnsortedList
+     */
     public IndexedList() {
         super();
     }
 
-    /**Creates list with user defined size from UnsortedList */
+    /**
+     * Creates list with user defined size from UnsortedList
+     */
     public IndexedList(int originalSize) {
         super(originalSize);
     }
 
-    /**Throws IndexOutOfBounds Exception if passed an index argument
+    /**
+     * Throws IndexOutOfBounds Exception if passed an index argument
      * such that index < 0 or index > size().
      * Otherwise, adds element to this list at position index; all current
-     * elements at that position or higher have 1 added to their index.*/
+     * elements at that position or higher have 1 added to their index.
+     */
     public void add(int index, data element) throws Duplicate, IndexOutOfBounds {
         if ((index < 0) || (index > size()))
             throw new IndexOutOfBoundsException("illegal index of " + index +
@@ -40,10 +49,12 @@ public class IndexedList<data> extends UnsortedList<data> implements InterfaceIn
         numElements++;
     }
 
-    /**Throws IndexOutOfBounds Exception if passed an index argument
+    /**
+     * Throws IndexOutOfBounds Exception if passed an index argument
      * such that index < 0 or index >= size().
      * Otherwise, replaces element on this list at position index and
-     * returns the replaced element.*/
+     * returns the replaced element.
+     */
     public data set(int index, data element) throws IndexOutOfBounds {
         if ((index < 0) || (index >= size()))
             throw new IndexOutOfBounds("Illegal index of " + index +
@@ -54,7 +65,9 @@ public class IndexedList<data> extends UnsortedList<data> implements InterfaceIn
         return hold;
     }
 
-    /**Override required in order to declare get(index, element) */
+    /**
+     * Override required in order to declare get(index, element)
+     */
     @Override
     public data get(int index) throws IndexOutOfBounds {
         if ((index < 0) || (index >= size()))
@@ -64,9 +77,11 @@ public class IndexedList<data> extends UnsortedList<data> implements InterfaceIn
             return list[index];
     }
 
-    /**Throws IndexOutOfBounds Exception if passed an index argument
+    /**
+     * Throws IndexOutOfBounds Exception if passed an index argument
      * such that index < 0 or index >= size().
-     * Otherwise, returns the element on this list at position index.*/
+     * Otherwise, returns the element on this list at position index.
+     */
     public data get(int index, data element) throws IndexOutOfBounds, EmptyList {
         if ((index < 0) || (index >= size()))
             throw new IndexOutOfBounds("Illegal index of " + index +
@@ -78,8 +93,10 @@ public class IndexedList<data> extends UnsortedList<data> implements InterfaceIn
         return list[index];
     }
 
-    /**If this list contains an element data such that data.equals(element), then returns the index of the first such
-     * element. Otherwise, throws Element not exist Exception.*/
+    /**
+     * If this list contains an element data such that data.equals(element), then returns the index of the first such
+     * element. Otherwise, throws Element not exist Exception.
+     */
     public int indexOf(data element) throws ElementNotExist {
         try {
             search(element);
@@ -92,15 +109,17 @@ public class IndexedList<data> extends UnsortedList<data> implements InterfaceIn
             throw new ElementNotExist("Element does not exist.");
     }
 
-    /**Throws IndexOutOfBounds Exception if passed an index argument
+    /**
+     * Throws IndexOutOfBounds Exception if passed an index argument
      * such that index < 0 or index >= size().
      * Otherwise, removes element on this list at position index and
      * returns the removed element; all current elements at positions
-     * higher than that position have 1 subtracted from their index.*/
+     * higher than that position have 1 subtracted from their index.
+     */
     public data remove(int index) {
         if ((index < 0) || (index >= size()))
             try {
-                throw new IndexOutOfBounds ("Illegal index of " + index +
+                throw new IndexOutOfBounds("Illegal index of " + index +
                         " passed to Indexed List remove method.\n");
             } catch (IndexOutOfBounds indexOutOfBounds) {
                 indexOutOfBounds.printStackTrace();

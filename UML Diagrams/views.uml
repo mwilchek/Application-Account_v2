@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>views</OriginalElement>
+  <nodes>
+    <node x="0.0" y="284.0">views.LoginDriver</node>
+    <node x="254.0" y="284.0">views.NewAccountCreated</node>
+    <node x="0.0" y="142.0">views.ProfileDriver</node>
+    <node x="0.0" y="0.0">views.RegisterDriver</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="222.0" y="189.5" />
+  <SelectedNodes>
+    <node>views.LoginDriver</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Constructors</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,13 +1,15 @@
 package tests;
 
 import Core.AccountIndexedList;
-import Core.AcctDataTracker;
 import Core.User;
-import dataStructures.*;
+import dataStructures.IndexedList;
 import exceptions.Duplicate;
 import exceptions.IndexOutOfBounds;
 import org.junit.jupiter.api.Test;
+
 import java.util.Random;
+
+import static Core.AcctDataTracker.readIndexedAccounts;
 
 /**
  * Created by Matt on 6/12/2017.
@@ -28,19 +30,24 @@ public class IndexedListTest {
                 "-1 is custom is less than default): " + Integer.compare(a.size(), b.size()));
     }
 
-    /**Tests adding element to list with index and element */
-
+    /**
+     * Tests adding element to list with index and element
+     */
     @Test
     public void loadUser() throws Exception {
 
         /**Assumption: A username was created with mwilchek already in the IndexedList .dat file */
-        String userName = "mwilchek";
+        //User user = new User("mwilchek", "Password#1");
+        //AcctDataTracker.outputIndexedAccounts(user);
 
-        System.out.print((IndexedList<User>) AcctDataTracker.readAccounts());
-        AccountIndexedList.setUsers((IndexedList<User>) AcctDataTracker.readAccounts()); //Error with setUsers
+        IndexedList<User> list = readIndexedAccounts(); //new Read in
 
-        int userIndex = AccountIndexedList.getUsers().indexOf(userName);
-        System.out.println("The index for " + userName + " is: " + userIndex);
+        System.out.println("Current Indexed .dat " + list.toString());
+        AccountIndexedList.setUsers(list);
+
+        User user = (User) AccountIndexedList.getUsers().get(0);
+        System.out.println("Username: " + user.getUserName());
+        System.out.println("Password: " + user.getPassword());
 
     }
 
@@ -48,11 +55,11 @@ public class IndexedListTest {
     public void add() {
         IndexedList a = new IndexedList(15);
         Random rand = new Random();
-        for (int i = 0; i <= a.size(); i++){
-            int  n = rand.nextInt(200) + 1;
-            try{
+        for (int i = 0; i <= a.size(); i++) {
+            int n = rand.nextInt(200) + 1;
+            try {
                 a.add(i, n);
-            } catch (IndexOutOfBounds index){
+            } catch (IndexOutOfBounds index) {
                 System.out.println("Warning: Loop attemtped to add an element with index out of bounds.");
             } catch (Duplicate duplicate) {
                 System.out.println("Warning: Loop attemtped to add duplicate.");
@@ -68,11 +75,11 @@ public class IndexedListTest {
     public void set() throws Exception {
         IndexedList a = new IndexedList(5);
         Random rand = new Random();
-        for (int i = 0; i <= a.size(); i++){
-            int  n = rand.nextInt(50) + 1;
-            try{
+        for (int i = 0; i <= a.size(); i++) {
+            int n = rand.nextInt(50) + 1;
+            try {
                 a.add(i, n);
-            } catch (IndexOutOfBounds index){
+            } catch (IndexOutOfBounds index) {
                 System.out.println("Warning: Loop attemtped to add an element with index out of bounds.");
             } catch (Duplicate duplicate) {
                 System.out.println("Warning: Loop attemtped to add duplicate.");
@@ -91,11 +98,11 @@ public class IndexedListTest {
     public void remove() throws Exception {
         IndexedList a = new IndexedList(4);
         Random rand = new Random();
-        for (int i = 0; i <= a.size(); i++){
-            int  n = rand.nextInt(30) + 1;
-            try{
+        for (int i = 0; i <= a.size(); i++) {
+            int n = rand.nextInt(30) + 1;
+            try {
                 a.add(i, n);
-            } catch (IndexOutOfBounds index){
+            } catch (IndexOutOfBounds index) {
                 System.out.println("Warning: Loop attemtped to add an element with index out of bounds.");
             } catch (Duplicate duplicate) {
                 System.out.println("Warning: Loop attemtped to add duplicate.");
@@ -169,8 +176,8 @@ public class IndexedListTest {
         System.out.println();
         System.out.println("Testing get()...");
         System.out.println("Current Indexed " + a.toString());
-        int zero = (int)a.get(0);
-        int one = (int)a.get(1);
+        int zero = (int) a.get(0);
+        int one = (int) a.get(1);
         System.out.println("Element [0] is: " + zero);
         System.out.println("Element [1] is: " + one);
     }
@@ -178,7 +185,7 @@ public class IndexedListTest {
     @Test
     public void reset() throws Exception {
         IndexedList a = new IndexedList(5);
-        try{
+        try {
             a.add(2);
             a.add(44);
         } catch (Duplicate duplicate) {
@@ -191,7 +198,9 @@ public class IndexedListTest {
         System.out.println();
     }
 
-    /**The test of getNext() also tests add(element) and reset() */
+    /**
+     * The test of getNext() also tests add(element) and reset()
+     */
     @Test
     public void getNext() throws Exception {
         IndexedList a = new IndexedList(4);

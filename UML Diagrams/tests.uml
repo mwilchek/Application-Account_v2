@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>tests</OriginalElement>
+  <nodes>
+    <node x="0.0" y="522.0">tests.AcctDataTrackerTest</node>
+    <node x="0.0" y="0.0">tests.IndexedListTest</node>
+    <node x="0.0" y="316.0">tests.StackTest</node>
+    <node x="267.0" y="316.0">tests.QueueTest</node>
+    <node x="367.0" y="0.0">tests.OrderedListTest</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="0.9463414634146341" x="324.5" y="297.5" />
+  <SelectedNodes>
+    <node>tests.AcctDataTrackerTest</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Constructors</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
